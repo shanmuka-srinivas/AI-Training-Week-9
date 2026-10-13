@@ -1,0 +1,4 @@
+  File "C:\Users\Softsuave\Projects\AI-Training-Week-9\list_tools.py", line 18
+    CONFIG = Path(sys.argv[sys.argv.index('--config') + 1]) if '--config' in sys.argv \n    else Path(__file__).resolve().parent / 'config' / 'mcp_servers.json'
+                                                                                       ^
+SyntaxError: unexpected character after line continuation character

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "recipe-cards": {
+      "command": "python",
+      "args": ["mcp_servers/recipe_server_v1.py"],
+      "transport": "stdio",
+      "note": "the BEFORE server: three-word docstrings and 'Error 3' failures"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+sentence-transformers==5.2.0
+numpy==2.5.2
+mcp==2.3.0
+
+# the local model (default backend). Install with:
+#   pip install llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+llama-cpp-python==0.3.35

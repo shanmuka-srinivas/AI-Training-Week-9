@@ -1,0 +1,8 @@
+
+  recipe-cards  (reports itself as 'recipe-cards' v1.0.0, MCP 2025-11-25)
+      - search_recipes
+      - get_recipe_section
+      - scale_recipe
+
+TOTAL TOOLS DISCOVERED: 3
+names: get_recipe_section, scale_recipe, search_recipes

@@ -1,0 +1,219 @@
+{
+  "what_this_is": "The raw MCP conversation with the ingredient-database server, captured without the SDK: plain JSON-RPC lines over stdin/stdout.",
+  "where_the_model_runs": "Nowhere in this file. Every line below is the host asking the server for data and the server answering. The model is called only by the host (agent/agent.py) to decide WHICH of these calls to make; the server never calls a model and does not know one exists.",
+  "transport": "stdio: the server is a child process; requests go to its stdin, replies come back on its stdout, one JSON object per line.",
+  "field_notes": {
+    "capabilities": "What each side supports: tools, resources, prompts, sampling.",
+    "content": "The tool's output, as a list of content blocks (usually one text block).",
+    "id": "Matches a reply to its request. Notifications have no id because nothing answers them.",
+    "instructions": "(no note)",
+    "isError": "True when the TOOL failed but the protocol worked. This is the recoverable kind.",
+    "jsonrpc": "Always \"2.0\". MCP is JSON-RPC 2.0, an old and boring standard, which is the point.",
+    "method": "What is being asked for: initialize, tools/list, tools/call.",
+    "params": "The arguments for that method.",
+    "protocolVersion": "Which version of MCP both sides agree to speak.",
+    "result": "The server's answer. A reply has either result or error, never both.",
+    "serverInfo": "The server's own name and version, as it reports itself.",
+    "tools": "The discovered tool list. THIS is what makes a tool usable without writing any code: name, description and a JSON Schema for the arguments."
+  },
+  "exchange": [
+    {
+      "direction": "host -> server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"method\": \"initialize\", \"id\": 1, \"params\": {\"protocolVersion\": \"2025-11-25\", \"capabilities\": {}, \"clientInfo\": {\"name\": \"recipe-agent-host\", \"version\": \"1.0.0\"}}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "method": "initialize",
+        "id": 1,
+        "params": {
+          "protocolVersion": "2025-11-25",
+          "capabilities": {},
+          "clientInfo": {
+            "name": "recipe-agent-host",
+            "version": "1.0.0"
+          }
+        }
+      }
+    },
+    {
+      "direction": "server -> host",
+      "raw": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"capabilities\":{\"prompts\":{\"listChanged\":false},\"resources\":{\"listChanged\":false,\"subscribe\":false},\"tools\":{\"listChanged\":false}},\"instructions\":\"Reference data about individual ingredients: weights, allergens, substitutes.\",\"protocolVersion\":\"2025-11-25\",\"serverInfo\":{\"name\":\"ingredient-db\",\"version\":\"0.4.2\"}}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "capabilities": {
+            "prompts": {
+              "listChanged": false
+            },
+            "resources": {
+              "listChanged": false,
+              "subscribe": false
+            },
+            "tools": {
+              "listChanged": false
+            }
+          },
+          "instructions": "Reference data about individual ingredients: weights, allergens, substitutes.",
+          "protocolVersion": "2025-11-25",
+          "serverInfo": {
+            "name": "ingredient-db",
+            "version": "0.4.2"
+          }
+        }
+      }
+    },
+    {
+      "direction": "host -> server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"method\": \"notifications/initialized\", \"params\": {}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "method": "notifications/initialized",
+        "params": {}
+      }
+    },
+    {
+      "direction": "host -> server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"method\": \"tools/list\", \"id\": 2, \"params\": {}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "method": "tools/list",
+        "id": 2,
+        "params": {}
+      }
+    },
+    {
+      "direction": "server -> host",
+      "raw": "{\"jsonrpc\":\"2.0\",\"id\":2,\"result\":{\"tools\":[{\"description\":\"Look up reference facts about a single ingredient: allergens and weight per cup.\\n\\nUse this for questions about an ingredient itself rather than about a recipe, for\\nexample \\\"is tahini a nut?\\\" or \\\"what allergen is in buttermilk\\\". For how much of an\\ningredient a recipe needs, use the recipe tools instead.\\n\",\"inputSchema\":{\"properties\":{\"name\":{\"title\":\"Name\",\"type\":\"string\"}},\"required\":[\"name\"],\"type\":\"object\",\"title\":\"ingredient_infoArguments\"},\"name\":\"ingredient_info\"},{\"description\":\"Convert a weight of one ingredient into US cups, using that ingredient's density.\\n\\nFlour and water weigh very different amounts per cup, so this needs the ingredient\\nname as well as the grams: grams_to_cups(\\\"strong white bread flour\\\", 900).\\n\",\"inputSchema\":{\"properties\":{\"name\":{\"title\":\"Name\",\"type\":\"string\"},\"grams\":{\"title\":\"Grams\",\"type\":\"number\"}},\"required\":[\"name\",\"grams\"],\"type\":\"object\",\"title\":\"grams_to_cupsArguments\"},\"name\":\"grams_to_cups\"},{\"description\":\"List what an ingredient can be swapped for, with the ratio and the catch.\\n\\nUse when the cook says they don't have something. Returns an empty list when the\\ndatabase records no safe swap, which means \\\"don't guess one\\\".\\n\",\"inputSchema\":{\"properties\":{\"name\":{\"title\":\"Name\",\"type\":\"string\"}},\"required\":[\"name\"],\"type\":\"object\",\"title\":\"substitutes_forArguments\"},\"name\":\"substitutes_for\"}]}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "result": {
+          "tools": [
+            {
+              "description": "Look up reference facts about a single ingredient: allergens and weight per cup.\n\nUse this for questions about an ingredient itself rather than about a recipe, for\nexample \"is tahini a nut?\" or \"what allergen is in buttermilk\". For how much of an\ningredient a recipe needs, use the recipe tools instead.\n",
+              "inputSchema": {
+                "properties": {
+                  "name": {
+                    "title": "Name",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object",
+                "title": "ingredient_infoArguments"
+              },
+              "name": "ingredient_info"
+            },
+            {
+              "description": "Convert a weight of one ingredient into US cups, using that ingredient's density.\n\nFlour and water weigh very different amounts per cup, so this needs the ingredient\nname as well as the grams: grams_to_cups(\"strong white bread flour\", 900).\n",
+              "inputSchema": {
+                "properties": {
+                  "name": {
+                    "title": "Name",
+                    "type": "string"
+                  },
+                  "grams": {
+                    "title": "Grams",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "name",
+                  "grams"
+                ],
+                "type": "object",
+                "title": "grams_to_cupsArguments"
+              },
+              "name": "grams_to_cups"
+            },
+            {
+              "description": "List what an ingredient can be swapped for, with the ratio and the catch.\n\nUse when the cook says they don't have something. Returns an empty list when the\ndatabase records no safe swap, which means \"don't guess one\".\n",
+              "inputSchema": {
+                "properties": {
+                  "name": {
+                    "title": "Name",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object",
+                "title": "substitutes_forArguments"
+              },
+              "name": "substitutes_for"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "direction": "host -> server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"method\": \"tools/call\", \"id\": 3, \"params\": {\"name\": \"grams_to_cups\", \"arguments\": {\"name\": \"strong white bread flour\", \"grams\": 900}}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "id": 3,
+        "params": {
+          "name": "grams_to_cups",
+          "arguments": {
+            "name": "strong white bread flour",
+            "grams": 900
+          }
+        }
+      }
+    },
+    {
+      "direction": "server -> host",
+      "raw": "{\"jsonrpc\":\"2.0\",\"id\":3,\"result\":{\"content\":[{\"text\":\"{\\n  \\\"ingredient\\\": \\\"strong white bread flour\\\",\\n  \\\"grams\\\": 900.0,\\n  \\\"cups\\\": 7.09,\\n  \\\"note\\\": \\\"based on 127 g per cup\\\"\\n}\",\"type\":\"text\"}],\"isError\":false}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "result": {
+          "content": [
+            {
+              "text": "{\n  \"ingredient\": \"strong white bread flour\",\n  \"grams\": 900.0,\n  \"cups\": 7.09,\n  \"note\": \"based on 127 g per cup\"\n}",
+              "type": "text"
+            }
+          ],
+          "isError": false
+        }
+      }
+    },
+    {
+      "direction": "host -> server",
+      "raw": "{\"jsonrpc\": \"2.0\", \"method\": \"tools/call\", \"id\": 4, \"params\": {\"name\": \"grams_to_cups\", \"arguments\": {\"name\": \"unicorn tears\", \"grams\": 100}}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "id": 4,
+        "params": {
+          "name": "grams_to_cups",
+          "arguments": {
+            "name": "unicorn tears",
+            "grams": 100
+          }
+        }
+      }
+    },
+    {
+      "direction": "server -> host",
+      "raw": "{\"jsonrpc\":\"2.0\",\"id\":4,\"result\":{\"content\":[{\"text\":\"{\\n  \\\"error\\\": \\\"'unicorn tears' is not in the ingredient database, so its density is unknown.\\\",\\n  \\\"did_you_mean\\\": [],\\n  \\\"next_step\\\": \\\"Call ingredient_info first to check the exact name.\\\"\\n}\",\"type\":\"text\"}],\"isError\":false}}",
+      "parsed": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "result": {
+          "content": [
+            {
+              "text": "{\n  \"error\": \"'unicorn tears' is not in the ingredient database, so its density is unknown.\",\n  \"did_you_mean\": [],\n  \"next_step\": \"Call ingredient_info first to check the exact name.\"\n}",
+              "type": "text"
+            }
+          ],
+          "isError": false
+        }
+      }
+    }
+  ]
+}
