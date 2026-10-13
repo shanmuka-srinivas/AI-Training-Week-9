@@ -38,7 +38,13 @@ ANNOTATIONS = {
                    "what to pass.",
     "content": "The tool's output, as a list of content blocks (usually one text block).",
     "structuredContent": "The same output as typed JSON, when the tool declares an output schema.",
-    "isError": "True when the TOOL failed but the protocol worked. This is the recoverable kind.",
+    "isError": "Set when the tool itself failed although the protocol worked. In our capture the "
+               "failing call shows isError=false, because the tool chose to RETURN a description of "
+               "the problem as ordinary data (\"'unicorn tears' is not in the ingredient database\", "
+               "plus did_you_mean and next_step) instead of raising. That is the recoverable pattern: "
+               "the model reads it and fixes its own call. An exception would have become a "
+               "JSON-RPC error and ended the step.",
+    "instructions": "A short note from the server about what it is for. The host may show it to the model.",
 }
 
 

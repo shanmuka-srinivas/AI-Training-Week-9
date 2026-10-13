@@ -1,0 +1,7 @@
+# Supply-chain risk note: the ingredient-db MCP server
+
+1. **Who wrote it:** another team's "ingredient database" server, vendored into this repo as `mcp_servers/ingredient_server.py`; in real life it would be someone else's package, so the honest answer is "not us, and nobody here has read every line".
+2. **What it can reach:** it is launched by *our* config as a child process with *our* user account, so it inherits our files, our network and our environment variables — the MCP boundary limits what our agent asks it, not what the process can touch.
+3. **What it logs:** every tool call arrives on its stdin, so it sees each ingredient and quantity we look up, and it could write all of that anywhere it likes; we do not control or even see its logging.
+4. **What a stolen token could do:** this build needs no token, but the moment it becomes a remote server with an API key, a stolen key would let anyone query the same data as us and would let a swapped-out server feed our agent false allergen facts — the dangerous direction, because a wrong "no allergens" answer reaches a cook.
+5. **Ship or don't:** ship for this read-only kitchen use, pinned to a reviewed version and run from our own copy, but do not ship it with network access or near private user data until it runs sandboxed with its own least-privilege credentials.

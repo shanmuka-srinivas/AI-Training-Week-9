@@ -1,4 +1,14 @@
-  File "C:\Users\Softsuave\Projects\AI-Training-Week-9\list_tools.py", line 18
-    CONFIG = Path(sys.argv[sys.argv.index('--config') + 1]) if '--config' in sys.argv \n    else Path(__file__).resolve().parent / 'config' / 'mcp_servers.json'
-                                                                                       ^
-SyntaxError: unexpected character after line continuation character
+servers in config: 2
+
+  recipe-cards  (reports itself as 'recipe-cards' v1.0.0, MCP 2025-11-25)
+      - search_recipes
+      - get_recipe_section
+      - scale_recipe
+
+  ingredient-db  (reports itself as 'ingredient-db' v0.4.2, MCP 2025-11-25)
+      - ingredient_info
+      - grams_to_cups
+      - substitutes_for
+
+TOTAL TOOLS DISCOVERED: 6
+names: get_recipe_section, grams_to_cups, ingredient_info, scale_recipe, search_recipes, substitutes_for
