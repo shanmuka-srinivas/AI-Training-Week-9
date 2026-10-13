@@ -5,6 +5,12 @@
       "args": ["mcp_servers/recipe_server.py"],
       "transport": "stdio",
       "note": "our own server: the recipe cards"
+    },
+    "ingredient-db": {
+      "command": "python",
+      "args": ["mcp_servers/ingredient_server.py"],
+      "transport": "stdio",
+      "note": "second server, run by another team: per-ingredient weights, allergens, substitutes"
     }
   }
 }
