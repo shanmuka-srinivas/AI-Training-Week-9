@@ -1,5 +1,3 @@
-# Supply-chain risk note: the ingredient-db MCP server
-
 1. **Who wrote it:** another team's "ingredient database" server, vendored into this repo as `mcp_servers/ingredient_server.py`; in real life it would be someone else's package, so the honest answer is "not us, and nobody here has read every line".
 2. **What it can reach:** it is launched by *our* config as a child process with *our* user account, so it inherits our files, our network and our environment variables — the MCP boundary limits what our agent asks it, not what the process can touch.
 3. **What it logs:** every tool call arrives on its stdin, so it sees each ingredient and quantity we look up, and it could write all of that anywhere it likes; we do not control or even see its logging.
