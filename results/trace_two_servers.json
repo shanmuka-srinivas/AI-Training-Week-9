@@ -35,7 +35,7 @@
       },
       "observation": "{\"ingredient\": \"strong white bread flour\", \"grams\": 1500.0, \"cups\": 11.81, \"note\": \"based on 127 g per cup\"}",
       "server": "ingredient-db",
-      "seconds": 25.207097199978307
+      "seconds": 22.297950299995136
     },
     {
       "n": 2,
@@ -46,7 +46,7 @@
       },
       "observation": "{\"ingredient\": \"strong white bread flour\", \"grams_per_cup\": 127, \"allergens\": [\"gluten\"]}",
       "server": "ingredient-db",
-      "seconds": 11.583501199958846
+      "seconds": 13.63311049999902
     },
     {
       "n": 3,
@@ -55,7 +55,7 @@
       "args": {},
       "observation": "",
       "server": "-",
-      "seconds": 13.716478700051084
+      "seconds": 15.152408099995228
     }
   ]
 }

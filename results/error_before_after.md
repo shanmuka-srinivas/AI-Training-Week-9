@@ -25,7 +25,7 @@ step 4  FINAL   You need 2 kg of fine sea salt for 1 kg of white cabbage in the 
 
 - **Final answer:** You need 2 kg of fine sea salt for 1 kg of white cabbage in the caraway sauerkraut recipe.
 - **Correct (20 g of salt for 1 kg of cabbage)?** NO
-- model calls: 4 · 76s · status: finished
+- model calls: 4 · 75s · status: finished
 
 ## AFTER
 
@@ -49,7 +49,7 @@ step 5  FINAL   For 1 kg of white cabbage, you need 20g of fine sea salt.
 
 - **Final answer:** For 1 kg of white cabbage, you need 20g of fine sea salt.
 - **Correct (20 g of salt for 1 kg of cabbage)?** YES
-- model calls: 5 · 87s · status: finished
+- model calls: 5 · 108s · status: finished
 
 ## What actually changed
 

@@ -1,7 +1,13 @@
+# Prebuilt CPU wheels for llama-cpp-python live here. Without this line pip tries to
+# build it from source, which fails on Windows unless long-path support is enabled.
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+--only-binary llama-cpp-python
+
+# MCP itself, and the search stack our own server uses
+mcp==2.3.0
 sentence-transformers==5.2.0
 numpy==2.5.2
-mcp==2.3.0
 
-# the local model (default backend). Install with:
-#   pip install llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+# Only needed for the two scripts that call the local model
+# (list_tools.py, capture_wire.py and the --tools-only comparison work without it)
 llama-cpp-python==0.3.35
